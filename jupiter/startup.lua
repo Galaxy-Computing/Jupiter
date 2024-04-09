@@ -13,7 +13,7 @@ if fs.exists("/jupiter/modules") then
         evalstring = "_G.modules["..tostring(i).."],"..evalstring
     end 
     evalstring = evalstring.."sleep"
-    eval("parallel.waitForAll("..evalstring..")")
+    loadstring("parallel.waitForAll(\"..evalstring..\")")()
 end
 -- boot is done, hang the kernel
 while true do
