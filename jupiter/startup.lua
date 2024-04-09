@@ -9,7 +9,7 @@ if fs.exists("/jupiter/modules") then
     _G.modules = {}
     local evalstring = ""
     for i,v in ipairs(fs.list("/jupiter/modules")) do
-        _G.modules[i] = function() shell.run(v) end
+        _G.modules[i] = function() shell.run("/jupiter/modules/"..v) end
         evalstring = "_G.modules["..tostring(i).."],"..evalstring
     end 
     evalstring = evalstring.."sleep"
