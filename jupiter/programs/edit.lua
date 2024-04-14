@@ -38,8 +38,8 @@ local highlightColour, keywordColour, commentColour, textColour, bgColour, strin
 if term.isColour() then
     bgColour = colours.black
     textColour = colours.white
-    highlightColour = colours.yellow
-    keywordColour = colours.yellow
+    highlightColour = colours.purple
+    keywordColour = colours.purple
     commentColour = colours.green
     stringColour = colours.red
     errorColour = colours.red

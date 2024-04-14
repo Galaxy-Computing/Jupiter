@@ -2,6 +2,11 @@
 --
 -- SPDX-License-Identifier: LicenseRef-CCPL
 
+if (os.version(1) == os.version()) then
+    printError("Unsupported system")
+    return
+end
+
 local tArgs = { ... }
 if #tArgs > 0 then
     print("This is an interactive Lua prompt.")

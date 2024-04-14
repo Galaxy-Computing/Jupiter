@@ -32,11 +32,14 @@ which program to run:
 local make_package = dofile("/jupiter/lib/core/require.lua").make
 
 if _G.shellreinit then
-local multishell = nil
-local parentShell = nil
-_G.shell = nil
-_G.multishell = nil
-_G.shellreinit = nil
+    local multishell = nil
+    local parentShell = nil
+    _G.shell = nil
+    _G.multishell = nil
+    _G.shellreinit = nil
+else
+    local multishell = multishell
+    local parentShell = shell
 end
 local parentTerm = term.current()
 
@@ -731,10 +734,13 @@ else
     print(os.version(1))
     term.setTextColour(textColour)
 
-    -- Run the startup program
-    --if parentShell == nil then
-    --    shell.run("/rom/startup.lua")
-    --end
+    -- Run the path builder
+    if parentShell == nil then
+        shell.run("/jupiter/pathbuilder.lua")
+    end
+
+    -- Fix path
+    shell.setPath(".:/jupiter/programs"..string.sub(shell.path(),2))
 
     -- Read commands and execute them
     local tCommandHistory = {}

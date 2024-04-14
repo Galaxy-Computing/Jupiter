@@ -1,10 +1,13 @@
 if not term.isColor() then printError("Jupiter requires an advanced computer.") return end
+-- create logger, we have to use lib.core.logger because the require() hasn't been replaced yet
 local logger = require("lib.core.logger")
 logger.sender = "init"
 term.clear()
 term.setCursorPos(1,1)
 shell.exit()
-logger.info("Creating environment")
+-- create a new require, changing the package.path
+-- this is currently not neccesary, but if init loads anything in the future this will be useful
+logger.info("Creating new require for init")
 local make_package = dofile("/jupiter/lib/core/require.lua").make
 local env = package.loaded
 env.shell = shell
@@ -26,6 +29,7 @@ logger.ok("Modified shell path")
 logger.info("Loading services")
 ccboot.bootcomplete = true;
 if fs.exists("/jupiter/services") then
+    _G.extensions = {}
     _G.services = {}
     local evalstring = ""
     for i,v in ipairs(fs.list("/jupiter/services")) do
@@ -43,6 +47,8 @@ if fs.exists("/jupiter/services") then
     end 
     evalstring = evalstring.."sleep"
     loadstring("parallel.waitForAll("..evalstring..")")()
+else
+    logger.error("Could not find /jupiter/services. No program will be started. The kernel will hang now.")
 end
 -- boot is done, hang the kernel
 while true do

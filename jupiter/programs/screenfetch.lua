@@ -2,7 +2,7 @@
 --
 -- SPDX-License-Identifier: MIT
 
-if os.pullEvent ~= nil then
+if (os.pullEvent ~= nil) and (os.version(1) ~= os.version()) then
 
     local ccart, ccart_fg, ccart_bg, ccart_adv_fg, ccart_adv_bg, ccart_width
 
@@ -203,4 +203,4 @@ ffffffffffffffffffffffff]]
     if term.screenshot ~= nil then term.screenshot() end
     sleep(0.25)
 
-else print("Unknown computer type") end
+else print("Unsupported system") end
